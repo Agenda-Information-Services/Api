@@ -2,7 +2,6 @@ package AS_API.entity;
 
 import jakarta.persistence.*;
 
-
 @Entity
 @Table(name = "BillProposer")
 public class BillProposer {
@@ -14,12 +13,24 @@ public class BillProposer {
     @JoinColumn(name = "billId", nullable = false)
     private Bill bill;
 
-    @Column(nullable = false, length = 255)
+    @Column(nullable = true, length = 255)
     private String proposerName;
 
-    @Column(nullable = false, length = 255)
-    private String career;
+    @Column(nullable = true)
+    private String bth;
 
-    @Column(nullable = false, length = 255)
-    private String party;
+    @Column(nullable = true, length = 255)
+    private String job;
+
+    @Column(nullable = true, length = 255)
+    private String poly;
+
+    @Column(nullable = true, length = 255)
+    private String orig;
+
+    @Column(nullable = true, length = 255)
+    private String cmits;
+
+    @Column(nullable = true, columnDefinition = "TEXT")
+    private String memTitle;
 }

@@ -2,8 +2,6 @@ package AS_API.entity;
 
 import jakarta.persistence.*;
 
-import jakarta.persistence.*;
-
 @Entity
 @Table(name = "BillStatus")
 public class BillStatus {
@@ -18,7 +16,7 @@ public class BillStatus {
     @Column(nullable = false)
     private int billCount;
 
-    @Column(nullable = false, length = 500)
+    @Column(nullable = true, length = 500)
     private String link;
 
     @Column(nullable = false)
