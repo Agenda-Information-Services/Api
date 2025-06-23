@@ -1,6 +1,7 @@
 package AS_API.dto;
 
-import lombok.Builder;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class CommentRequestDto {
 
@@ -8,8 +9,12 @@ public class CommentRequestDto {
     private final Long parentCommentId;
     private final String commentContent;
 
-    @Builder
-    public CommentRequestDto(Long postId, Long parentCommentId, String commentContent) {
+    @JsonCreator
+    public CommentRequestDto(
+        @JsonProperty("postId") Long postId,
+        @JsonProperty("parentCommentId") Long parentCommentId,
+        @JsonProperty("commentContent") String commentContent
+    ) {
         this.postId = postId;
         this.parentCommentId = parentCommentId;
         this.commentContent = commentContent;

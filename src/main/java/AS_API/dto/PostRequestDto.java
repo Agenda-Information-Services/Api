@@ -1,14 +1,18 @@
 package AS_API.dto;
 
-import lombok.Builder;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class PostRequestDto {
 
     private final String postTitle;
     private final String content;
 
-    @Builder
-    public PostRequestDto(String postTitle, String content) {
+    @JsonCreator
+    public PostRequestDto(
+        @JsonProperty("postTitle") String postTitle,
+        @JsonProperty("content") String content
+    ) {
         this.postTitle = postTitle;
         this.content = content;
     }
