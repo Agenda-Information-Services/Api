@@ -27,7 +27,15 @@ public class BillProposerController {
     ) {
         try {
             Pageable pageable = PageRequest.of(page, size);
-            Page<BillProposerDto> proposers = billProposerService.searchProposers(keyword, pageable);
+            Page<BillProposerDto> proposers = billProposerService.searchProposers(
+                    (keyword == null || keyword.trim().isEmpty()) ? null : keyword.trim(),
+                    pageable
+            );
+
+            if (proposers.isEmpty()) {
+                return ResponseEntity.status(404).body("검색 결과가 없습니다.");
+            }
+
             return ResponseEntity.ok(proposers);
         } catch (Exception e) {
             return ResponseEntity.status(500).body("에러 발생: " + e.getMessage());

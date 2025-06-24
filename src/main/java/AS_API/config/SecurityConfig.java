@@ -38,8 +38,8 @@ public class SecurityConfig {
                         (auth) -> auth
                                 .requestMatchers("/api/register", "/api/login", "/api/createAdmin").permitAll()
                                 .requestMatchers("/api/admin/**").hasAuthority("ADMIN")
-                                .requestMatchers("/api/questions/**", "api/rentals/create/**", "api/extends/create/**",
-                                        "/api/noticeList/**", "/api/logout", "/api/users/**").authenticated()
+                                .requestMatchers("/api/mypage/**", "api/users/**", "api/bills/**",
+                                        "/api/proposers/**", "/api/logout", "/api/posts/**","/api/recommend").authenticated()
                                 .anyRequest().permitAll()
                 )
                 .addFilterBefore(tokenAuthenticationFilter, UsernamePasswordAuthenticationFilter.class)

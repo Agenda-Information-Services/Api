@@ -11,9 +11,10 @@ public class BillDto {
     private String billProposer;
     private String committee;
     private String billStatus;
+    private String poly;
 
     public BillDto(Long billId, String apiId, Long billNumber, String billTitle,
-                   String billProposer, String committee, String billStatus) {
+                   String billProposer, String committee, String billStatus, String poly) {
         this.billId = billId;
         this.apiId = apiId;
         this.billNumber = billNumber;
@@ -21,5 +22,7 @@ public class BillDto {
         this.billProposer = billProposer;
         this.committee = committee;
         this.billStatus = billStatus;
+        this.poly = poly;
     }
 }
+

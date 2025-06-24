@@ -1,5 +1,7 @@
 package AS_API.entity;
 
+import AS_API.config.EmbeddingUtil;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -26,30 +28,55 @@ public class Bill {
     @Column(nullable = false)
     private Long billNumber;
 
-    @Column(nullable = true, length = 255)
+    @Column(length = 255)
     private String billTitle;
 
-    @Column(nullable = true, length = 255)
+    @Column(length = 255)
     private String billProposer;
 
-    @Column(nullable = true, length = 255)
+    @Column(length = 255)
     private String committee;
 
-    @Column(nullable = true, length = 255)
+    @Column(length = 255)
     private String billStatus;
 
-    @Column(nullable = true)
+    @Column
     private LocalDateTime billDate;
 
-    @Column(nullable = true, columnDefinition = "TEXT")
+    @Column(columnDefinition = "TEXT")
     private String detail;
 
-    @Column(nullable = true, columnDefinition = "TEXT")
+    @Column(columnDefinition = "TEXT")
     private String summary;
 
-    @Column(nullable = true, columnDefinition = "TEXT")
+    @Column(columnDefinition = "TEXT")
     private String prediction;
 
+    @Column(columnDefinition = "TEXT")
+    private String term;
+
     @OneToOne(mappedBy = "bill", cascade = CascadeType.ALL)
+    @JsonIgnore
     private BillStatus billStatusDetail;
+
+    @Basic(fetch = FetchType.EAGER)
+    @Column(columnDefinition = "vector(1536)", nullable = false)
+    private byte[] embedding;
+
+    public void setEmbedding(float[] vector) {
+        this.embedding = EmbeddingUtil.floatArrayToByteArray(vector);
+    }
+
+    public float[] getEmbedding() {
+        if (embedding == null) return null;
+        float[] vector = EmbeddingUtil.byteArrayToFloatArray(embedding);
+
+        for (int i = 0; i < vector.length; i++) {
+            if (Float.isNaN(vector[i]) || Float.isInfinite(vector[i])) {
+                System.err.printf("⚠️ 잘못된 임베딩 값: index=%d, value=%f%n", i, vector[i]);
+            }
+        }
+
+        return vector;
+    }
 }

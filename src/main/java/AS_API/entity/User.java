@@ -13,11 +13,12 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
+@Table(name = "user")
 public class User {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(nullable = false)
+    @Column(name = "user_id")
     private Long userId;
 
     @Column(nullable = false)
@@ -40,6 +41,10 @@ public class User {
     private Role role;
 
     @Column(nullable = false)
+    private String status;
+
+
+    @Column(nullable = false)
     private String nickName;
 
     public static User createUser(UserRegisterDto userRegisterDto, PasswordEncoder passwordEncoder){
@@ -53,9 +58,17 @@ public class User {
                 .email(userRegisterDto.getEmail())
                 .nickName(userRegisterDto.getNickName())
                 .role(Role.USER)
+                .status("ACTIVE")
                 .build();
 
         return user;
+    }
+    public void suspend() {
+    this.status = "SUSPENDED";
+    }
+
+    public void resume() {
+    this.status = "ACTIVE";
     }
 
     public void updatePassword(String newPassword) {

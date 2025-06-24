@@ -26,8 +26,6 @@ public class UserResponseDto {
 
     public static UserResponseDto fromSimple(User user) {
         UserResponseDto dto = new UserResponseDto(user);
-        dto.userId = null;
-        dto.name = null;
         dto.phoneNumber = null;
         dto.email = null;
         return dto;

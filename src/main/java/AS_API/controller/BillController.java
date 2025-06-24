@@ -7,6 +7,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -23,15 +24,17 @@ public class BillController {
             @RequestParam(required = false) String title,
             @RequestParam(required = false) String proposer,
             @RequestParam(required = false) String detail,
+            @RequestParam(required = false) String committee,
             @RequestParam(defaultValue = "0") int page,
             @RequestParam(defaultValue = "10") int size
     ) {
         try {
-            Pageable pageable = PageRequest.of(page, size);
+            Pageable pageable = PageRequest.of(page, size, Sort.by(Sort.Direction.DESC, "billId"));
             Page<BillDto> bills = billService.searchBills(
                     (title != null && !title.trim().isEmpty()) ? title : null,
                     (proposer != null && !proposer.trim().isEmpty()) ? proposer : null,
                     (detail != null && !detail.trim().isEmpty()) ? detail : null,
+                    (committee != null && !committee.trim().isEmpty()) ? committee : null,
                     pageable
             );
             return ResponseEntity.ok(bills);

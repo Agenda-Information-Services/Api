@@ -19,6 +19,9 @@ public enum ErrorCode {
     USER_NICKNAME_INVALID(BAD_REQUEST,"UE7", "닉네임이 올바르지 않습니다."),
     USER_PASSWORD_MISMATCH(UNAUTHORIZED, "UE8", "현재 비밀번호가 일치하지 않습니다."),
     NO_UPDATE_FIELD(BAD_REQUEST, "UE9", "변경할 항목이 없습니다."),
+    REPORT_NOT_FOUND(NOT_FOUND, "R001", "해당 신고 내역을 찾을 수 없습니다."),
+
+
 
 
     // 권한 관련 에러 //
