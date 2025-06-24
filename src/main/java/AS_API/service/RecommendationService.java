@@ -33,7 +33,7 @@ public class RecommendationService {
         for (int i = 0; i < vectors.length; i++) {
             float[] v = vectors[i];
             double score = dot(query, v);
-            if (score >= 0.3) {
+            if (score >= 0.1) {
                 top.add(new Score(ids.get(i), score));
             }
         }
